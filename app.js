@@ -107,7 +107,7 @@ app.configure('development', function(){
 
 app.get('/', function(req, res){
   console.log("got the route");
-  res.render('index', { user: req.user });
+  res.render('index', { user: req.user});
 });
 
 app.get('/auth/twitter',
@@ -126,6 +126,11 @@ app.get('/auth/twitter/callback',
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
+});
+
+app.get('/touch', function(req,res){
+  console.log(req.session.passport.user);
+  //res.ridirect('/');
 });
 
 http.createServer(app).listen(app.get('port'), function(){

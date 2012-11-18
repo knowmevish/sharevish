@@ -1,11 +1,14 @@
-
-
-p hello world
-if user
-	h1 Successfully authenticated
-		h2 #{user.name}
-	p
-		a(href='/logout') -Logout-
-else
-	h1 Please login
-	a(href='/auth/twitter') -login with twitter-
+body
+	extends layout
+	block Content
+		p hello world
+		.login
+			if user
+				h1.user Successfully authenticated
+					h2.user-detail(name="#{user.id}") #{user.name}
+				p
+					a(href='/logout') -Logout-
+					a(href='/touch') - touch-
+			else
+				h1.index Please login
+				a(href='/auth/twitter') -login with twitter-
