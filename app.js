@@ -29,15 +29,19 @@ passport.use(new TwitterStrategy({
     callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    console.log(profile);
+    console.log(profile.username);
     User.find({ where: {screen_id: profile.id} }).success(function(user) {
     //User.findOne({screen_id: profile.screen_id}, function(err, user) {
       if(user) {
         done(null, user);
       } else {
 
-        User.create({ screen_id: profile.id, name: profile.name, partner:false }).success(function(user) {
+        User.create({ screen_id: profile.id, name: profile.username, partner:false }).success(function(user) {
           // you can now access the newly created task via the variable task
+          user.save().success(function(err) {
+            //if(err) { throw err; }
+            done(null, user);
+          });
         });
         //var user = new User();
         //user.provider = "twitter";
@@ -49,10 +53,7 @@ passport.use(new TwitterStrategy({
         //   done(null, user);
         // });
 
-        user.save().success(function(err) {
-          if(err) { throw err; }
-          done(null, user);
-        });
+       
       }
     })
   }
@@ -63,8 +64,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(uid, done) {
-  User.find({ where: {screen_id: profile.id} }).success(function(user) {
-    done(err,user);
+  User.find({ where: {screen_id: uid} }).success(function(user) {
+    done(null,user);
   });
   // User.findOne({uid: uid}, function (err, user) {
   //   done(err, user);
