@@ -1,6 +1,11 @@
 
-h1 Successfully authenticated.
- h2 #{screen_name}
-p
-  a(href='/logout') -Logout-
 
+p hello world
+if user
+	h1 Successfully authenticated
+		h2 #{user.name}
+	p
+		a(href='/logout') -Logout-
+else
+	h1 Please login
+	a(href='/auth/twitter') -login with twitter-

@@ -10,6 +10,8 @@
     "jade": "*",
     "mysql": "*",
     "oauth": "*",
-    "sequelize":"*"
+    "sequelize":"*",
+    "passport": "*",
+    "passport-twitter": "*"
   }
 }
